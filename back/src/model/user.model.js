@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {schema} from "mongoose";
+import { schema } from "mongoose";
 
 const userSchema = new schema({
   email: { type: String, required: true, unique: true },
@@ -7,10 +7,8 @@ const userSchema = new schema({
   password: { type: String, required: true },
   profilePic: { type: String, required: true },
   friends: { type: String, required: true },
-  friendsRequests: { type: String, required: true },
-
+  friendsRequests: { type: schema.types.objectid, ref: "user" },
 });
 
-const User = mongoose.model("User", userSchema);
-
-export default 
+const UserModel = mongoose.model("User", userSchema);
+model.exports = UserModel;
