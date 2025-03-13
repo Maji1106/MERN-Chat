@@ -1,14 +1,21 @@
 import mongoose from "mongoose";
-import { schema } from "mongoose";
+const { Schema, model } = mongoose;
 
-const userSchema = new schema({
-  email: { type: String, required: true, unique: true },
-  fullName: { type: String, required: true },
-  password: { type: String, required: true },
-  profilePic: { type: String, required: true },
-  friends: { type: String, required: true },
-  friendsRequests: { type: schema.types.objectid, ref: "user" },
-});
+const UserSchema = new Schema(
+  {
+    email: { type: String, required: true, unique: true },
+    fullName: { type: String, required: true },
+    password: { type: String, required: true },
+    profilePic: { type: String, default: "" }, // ไม่บังคับให้กรอก
+    friend: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
+    friendRequests: [
+      { type: Schema.Types.ObjectId, ref: "User", required: true },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const UserModel = mongoose.model("User", userSchema);
-model.exports = UserModel;
+const UserModel = model("User", UserSchema);
+export default UserModel;
